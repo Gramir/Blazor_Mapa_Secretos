@@ -1,0 +1,127 @@
+﻿@page "/registro"
+@inject Tarea5_.Servicios.UsuarioServicio servicio
+@inject AuthenticationStateProvider auth
+@inject NavigationManager nav
+@inject IJSRuntime Js
+
+
+
+<div class="col-5 bg-light m-2 justify-content-start">
+    <div class="p-3 mb-3 bg-primary text-white text-center">Registrar Usuario</div>
+    <EditForm Model="@NuevoUsuario">
+        <div class="form-group">
+            <label>Cedula</label>
+            <input type="number" id="cedula" class="form-control" @bind-value="@cedu" />
+            <button type="button" class="btn btn-info" @onclick="Api">Verificar</button>
+        </div>
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="contraseña" class="form-control" @bind="@NuevoUsuario.Clave" />
+        </div>
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" id="nombre" class="form-control" @bind="@nombre" readonly />
+        </div>
+        <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" id="apellido" class="form-control" @bind="@apellido" readonly />
+        </div>
+        <div class="form-group">
+            <img src="@foto" alt="foto" hidden="@hide" title="foto" />
+        </div>
+        <div class="text-center p-3 mb-3">
+            <button class="btn btn-info" @onclick="AgregarUsuario" hidden="@hide"> Completar Registro</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    public Tarea5_.Models.Usuario NuevoUsuario { get; set; } = new Models.Usuario();
+    List<Tarea5_.Models.Usuario> Usuarios = new List<Tarea5_.Models.Usuario>();
+
+    string cedu, nombre, apellido, foto;
+    bool hide = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Usuarios = await servicio.GetUsuariosAsync();
+    }
+
+    private async Task AgregarUsuario()
+    {
+        if (cedu == null)
+        {
+            await Js.InvokeAsync<bool>("confirm", "Debe ingresar una contraseña");
+        }
+        else
+        {
+            NuevoUsuario.Cedula = cedu;
+            NuevoUsuario.Nombre = nombre;
+            NuevoUsuario.Foto = foto;
+            NuevoUsuario.Apellido = apellido;
+
+            await servicio.AgregarUsuario(NuevoUsuario);
+            await Js.InvokeAsync<bool>("confirm", "Usuario Guardado!");
+            nav.NavigateTo("/");
+        }
+
+
+    }
+
+    private async Task Api()
+    {
+        HttpClient http = new HttpClient();
+        Cedula cedula = new Cedula();
+
+        if (cedu == null)
+        {
+            await Js.InvokeAsync<bool>("confirm", "CEDULA DEBE TENER 11 DIGITOS");
+            hide = true;
+        }
+        else
+        {
+            if (cedu.Length <= 10 || cedu.Length >= 12)
+            {
+                await Js.InvokeAsync<bool>("confirm", "CEDULA DEBE TENER 11 DIGITOS");
+                hide = true;
+            }
+            else
+            {
+                var match = Usuarios.Any(u => u.Cedula == cedu);
+                if (match == true)
+                {
+                    await Js.InvokeAsync<bool>("confirm", "Cedula ya esta registrada");
+
+                }
+                else
+                {
+                    {
+                        cedula = await http.GetJsonAsync<Cedula>("https://api.adamix.net/apec/cedula/" + cedu);
+                    }
+
+                    if (cedula.ok == false)
+                    {
+                        await Js.InvokeAsync<bool>("confirm", "CEDULA NO ENCONTRADA");
+                        hide = true;
+                    }
+                    else
+                    {
+                        nombre = cedula.Nombres;
+                        apellido = cedula.Apellido1;
+                        foto = cedula.foto;
+                        hide = false;
+                    }
+                }
+            }
+        }
+
+    }
+
+    public class Cedula
+    {
+        public string Nombres { get; set; }
+        public string Apellido1 { get; set; }
+        public bool ok { get; set; }
+        public string foto { get; set; }
+    }
+}
