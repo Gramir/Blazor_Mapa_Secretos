@@ -62,7 +62,7 @@
 
             await servicio.AgregarUsuario(NuevoUsuario);
             await Js.InvokeAsync<bool>("confirm", "Usuario Guardado!");
-            nav.NavigateTo("/");
+            nav.NavigateTo("/iniciar");
         }
 
 
