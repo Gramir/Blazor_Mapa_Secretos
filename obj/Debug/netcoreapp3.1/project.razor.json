@@ -12,35 +12,35 @@
   "ProjectWorkspaceState": {
     "TagHelpers": [
       {
-        "HashCode": 405309519,
+        "HashCode": -1338717160,
         "Kind": "Components.Component",
-        "Name": "Tarea5_.App",
+        "Name": "Tarea5_.Pages.Index",
         "AssemblyName": "Tarea5_",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "App"
+            "TagName": "Index"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Tarea5_.App"
+          "Common.TypeName": "Tarea5_.Pages.Index"
         }
       },
       {
-        "HashCode": 501233726,
+        "HashCode": -274467979,
         "Kind": "Components.Component",
-        "Name": "Tarea5_.App",
+        "Name": "Tarea5_.Pages.Index",
         "AssemblyName": "Tarea5_",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Tarea5_.App"
+            "TagName": "Tarea5_.Pages.Index"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Tarea5_.App",
+          "Common.TypeName": "Tarea5_.Pages.Index",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -177,35 +177,35 @@
         }
       },
       {
-        "HashCode": -1338717160,
+        "HashCode": 405309519,
         "Kind": "Components.Component",
-        "Name": "Tarea5_.Pages.Index",
+        "Name": "Tarea5_.App",
         "AssemblyName": "Tarea5_",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Index"
+            "TagName": "App"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Tarea5_.Pages.Index"
+          "Common.TypeName": "Tarea5_.App"
         }
       },
       {
-        "HashCode": -274467979,
+        "HashCode": 501233726,
         "Kind": "Components.Component",
-        "Name": "Tarea5_.Pages.Index",
+        "Name": "Tarea5_.App",
         "AssemblyName": "Tarea5_",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Tarea5_.Pages.Index"
+            "TagName": "Tarea5_.App"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Tarea5_.Pages.Index",
+          "Common.TypeName": "Tarea5_.App",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
